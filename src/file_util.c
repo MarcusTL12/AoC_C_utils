@@ -15,7 +15,7 @@ char *file_read_full(char *filename) {
     char *buffer = malloc(s + 1);
     
     FILE *fp = fopen(filename, "rb");
-    fgets(buffer, s + 1, fp);
+    fread(buffer, 1, s + 1, fp);
     fclose(fp);
 
     return buffer;
