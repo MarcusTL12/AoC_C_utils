@@ -1,8 +1,8 @@
 #define PCRE2_CODE_UNIT_WIDTH 8
+#include "regex_util.h"
+
 #include <pcre2.h>
 #include <stdbool.h>
-
-#include "regex_util.h"
 
 void *regex_compile(char *reg_str) {
     size_t error_offset;
@@ -46,16 +46,23 @@ regex_iter regex_iter_create(void *reg, char *str) {
     it.match_data = match_data;
     it.str = str;
     it.offset = 0;
+    it.remaining = -1;
 
     return it;
+}
+
+void regex_iter_update(regex_iter *it, char *str, size_t len) {
+    it->str = str;
+    it->offset = 0;
+    it->remaining = len;
 }
 
 void regex_iter_free(regex_iter it) { pcre2_match_data_free(it.match_data); }
 
 bool regex_next_match(regex_iter *it, size_t *captures) {
-    int rc = pcre2_match(it->reg, (const unsigned char *)it->str, -1, 0, 0,
-                         it->match_data, NULL);
-    
+    int rc = pcre2_match(it->reg, (const unsigned char *)it->str, it->remaining,
+                         0, 0, it->match_data, NULL);
+
     if (rc <= 0) {
         return false;
     } else {
@@ -69,6 +76,9 @@ bool regex_next_match(regex_iter *it, size_t *captures) {
         size_t shift = *off_vec + captures[1];
         it->str += shift;
         it->offset += shift;
+        if (it->remaining != (size_t)-1) {
+            it->remaining -= shift;
+        }
 
         return true;
     }

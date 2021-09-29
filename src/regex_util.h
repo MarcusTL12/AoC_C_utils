@@ -10,9 +10,10 @@ typedef struct {
     void *reg;
     void *match_data;
     char *str;
-    size_t offset;
+    size_t offset, remaining;
 } regex_iter;
 
 regex_iter regex_iter_create(void *reg, char *str);
+void regex_iter_update(regex_iter *it, char *str, size_t len);
 void regex_iter_free(regex_iter it);
 bool regex_next_match(regex_iter *it, size_t *captures);
