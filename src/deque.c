@@ -2,7 +2,6 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
 #define GROWTH_FACTOR 2
 #define INIT_CAP 8
@@ -28,8 +27,6 @@ void deque_free(deque_t *q) {
 
 static void deque_realloc(deque_t *q) {
     if (q->first_free_ind == q->start_ind && q->amt_elements > 0) {
-        printf("Reallocating!\n");
-
         deque_t new_q;
 
         new_q.el_size = q->el_size;
@@ -45,7 +42,7 @@ static void deque_realloc(deque_t *q) {
         memcpy(new_q.data, q->data + q->start_ind * q->el_size,
                amt_elements_before_split * q->el_size);
         memcpy(new_q.data + amt_elements_before_split * q->el_size, q->data,
-               q->first_free_ind);
+               q->first_free_ind * q->el_size);
 
         deque_free(q);
 
