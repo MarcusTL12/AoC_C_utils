@@ -9,6 +9,7 @@ typedef struct {
 
 vec_t vec_create(size_t el_size);
 void vec_free(vec_t *v);
+void vec_clear(vec_t *v);
 
 void vec_push(vec_t *v, void *value);
 void vec_pop(vec_t *v, void *dest);

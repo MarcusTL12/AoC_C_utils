@@ -19,6 +19,8 @@ vec_t vec_create(size_t el_size) {
 
 void vec_free(vec_t *v) { free(v->data); }
 
+void vec_clear(vec_t *v) { v->len = 0; }
+
 static void reallocate(vec_t *v) {
     if (v->len == v->capacity) {
         if (v->capacity == 0) {
