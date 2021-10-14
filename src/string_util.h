@@ -5,7 +5,7 @@
 #include "iterator.h"
 
 iterator str_split_iter(char *str, char delim, bool terminated,
-                        size_t len_or_terminator);
+                        size_t len_or_terminator, bool get_len);
 
 typedef struct {
     char *start;
