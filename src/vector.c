@@ -62,3 +62,16 @@ void vec_show(vec_t *v, void (*el_show)(void *)) {
     }
     printf("]");
 }
+
+vec_t vec_clone(vec_t *v) {
+    vec_t new_v;
+
+    new_v.el_size = v->el_size;
+    new_v.capacity = v->capacity;
+    new_v.len = v->len;
+
+    new_v.data = malloc(v->capacity * v->el_size);
+    memcpy(new_v.data, v->data, v->len * v->el_size);
+
+    return new_v;
+}
