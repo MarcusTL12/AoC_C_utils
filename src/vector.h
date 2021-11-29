@@ -20,3 +20,4 @@ void vec_set(vec_t *v, size_t ind, void *val);
 void vec_show(vec_t *v, void (*el_show)(void *));
 
 vec_t vec_clone(vec_t *v);
+void vec_copy(vec_t *d, vec_t *s);

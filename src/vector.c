@@ -75,3 +75,23 @@ vec_t vec_clone(vec_t *v) {
 
     return new_v;
 }
+
+void vec_copy(vec_t *d, vec_t *s) {
+    if (d->el_size != s->el_size) {
+        printf("Type mismatch in vector copy!\n");
+        exit(0);
+    }
+    d->len = s->len;
+    if (d->capacity < s->len) {
+        size_t factor = 2;
+
+        while (d->capacity * factor < s->len) factor *= 2;
+
+        d->capacity *= factor;
+
+        free(d->data);
+        d->data = malloc(d->el_size * d->capacity);
+
+        memcpy(d->data, s->data, d->el_size * d->len);
+    }
+}
