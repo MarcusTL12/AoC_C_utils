@@ -25,6 +25,12 @@ void deque_free(deque_t *q) {
     q->data = NULL;
 }
 
+void deque_clear(deque_t *q) {
+    q->amt_elements = 0;
+    q->start_ind = 0;
+    q->first_free_ind = 0;
+}
+
 static void deque_realloc(deque_t *q) {
     if (q->first_free_ind == q->start_ind && q->amt_elements > 0) {
         deque_t new_q;
@@ -101,4 +107,16 @@ bool deque_pop_front(deque_t *q, void *dest) {
     }
 
     return true;
+}
+
+deque_t deque_clone(deque_t *q) {
+    deque_t nq = deque_create(q->el_size);
+
+    void *buf = malloc(q->el_size);
+    while (deque_pop_front(q, buf)) {
+        deque_push_back(&nq, buf);
+    }
+    free(buf);
+
+    return nq;
 }
