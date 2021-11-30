@@ -21,3 +21,15 @@ bool bitfield_get(uint64_t *bitfield, size_t index) {
 
     return bitfield[index_split.quot] & mask;
 }
+
+size_t bitfield_count(uint64_t *bitfield, size_t amt_ints) {
+    size_t acc = 0;
+
+    for (size_t i = 0; i < amt_ints; i++) {
+        size_t x;
+        asm("popcnt %1, %0" : "=r"(x) : "r"(bitfield[i]));
+        acc += x;
+    }
+
+    return acc;
+}
