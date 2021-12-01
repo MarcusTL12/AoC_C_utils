@@ -44,4 +44,4 @@ uint64_t *bitfield_create(size_t bits) {
     return p;
 }
 
-void *bitfield_free(uint64_t *bitfield) { free(bitfield); }
+void bitfield_free(uint64_t *bitfield) { free(bitfield); }
