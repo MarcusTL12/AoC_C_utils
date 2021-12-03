@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stdlib.h>
+#include <stddef.h>
 #include <stdbool.h>
 
 void *regex_compile(char *reg_str);

@@ -1,6 +1,9 @@
+#include "bitfield.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
 
 void bitfield_set(uint64_t *bitfield, size_t index, bool val) {
     lldiv_t index_split = lldiv(index, 64);
@@ -33,3 +36,12 @@ size_t bitfield_count(uint64_t *bitfield, size_t amt_ints) {
 
     return acc;
 }
+
+uint64_t *bitfield_create(size_t bits) {
+    size_t bytes = bitfield_ints(bits) * sizeof(uint64_t);
+    void *p = malloc(bytes);
+    memset(p, 0, bytes);
+    return p;
+}
+
+void bitfield_free(uint64_t *bitfield) { free(bitfield); }
