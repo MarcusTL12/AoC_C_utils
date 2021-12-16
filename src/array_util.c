@@ -14,3 +14,11 @@ minmax_t minmax(int64_t *array, size_t len) {
 
     return mm;
 }
+
+void memswap(void *a, void *b, size_t n) {
+    for (size_t i = 0; i < n; i++) {
+        char tmp = ((char *)a)[i];
+        ((char *)a)[i] = ((char *)b)[i];
+        ((char *)b)[i] = tmp;
+    }
+}
