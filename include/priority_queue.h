@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../hashmap.c/hashmap.h"
+#include "hashmap.h"
 #include "vector.h"
 
 typedef struct {
