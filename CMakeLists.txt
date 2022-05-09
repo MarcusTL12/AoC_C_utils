@@ -20,6 +20,10 @@ add_library(
     src/vector.c
 )
 
+set(CMAKE_C_FLAGS_RELEASE "-O3")
+
+set(CMAKE_C_FLAGS_DEBUG "-O0 -g")
+
 set_target_properties(
     aoc_util PROPERTIES PUBLIC_HEADER
     "\
