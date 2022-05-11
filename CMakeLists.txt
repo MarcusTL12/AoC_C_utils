@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(AoC_C_Utils)
+project(AoC_C_Utils C)
 
 include_directories(include hashmap.c)
 
