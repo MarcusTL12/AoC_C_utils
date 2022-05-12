@@ -14,6 +14,7 @@ add_library(
     src/file_util.c
     src/md5_util.c
     src/number_theory.c
+    src/point.c
     src/priority_queue.c
     src/regex_util.c
     src/str_split_iter.c
@@ -36,6 +37,7 @@ include/file_util.h;\
 include/iterator.h;\
 include/md5_util.h;\
 include/number_theory.h;\
+include/point.h;\
 include/priority_queue.h;\
 include/regex_util.h;\
 include/show.h;\
