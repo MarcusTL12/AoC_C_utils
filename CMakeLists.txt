@@ -34,6 +34,7 @@ include/bitfield.h;\
 include/combinatorics.h;\
 include/deque.h;\
 include/file_util.h;\
+include/hashmap_util.h;\
 include/iterator.h;\
 include/md5_util.h;\
 include/number_theory.h;\
