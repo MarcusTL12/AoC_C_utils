@@ -13,3 +13,14 @@ static void show_int64_arr(int64_t *v, size_t n) {
     }
     printf("]");
 }
+
+static void show_arr(void *arr, size_t n, size_t el_size,
+                     void (*el_show)(void *)) {
+    printf("[");
+    el_show(arr);
+    for (size_t i = 1; i < n; i++) {
+        printf(", ");
+        el_show(arr + el_size * i);
+    }
+    printf("]");
+}
