@@ -1,5 +1,6 @@
 #include "point.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #include "hashmap.h"
@@ -14,4 +15,9 @@ uint64_t point2i_hash(const void *p_, uint64_t s0, uint64_t s1) {
     point2i *p = (point2i *)p_;
 
     return hashmap_sip(p, sizeof(point2i), s0, s1);
+}
+
+void point2i_show(void *p_) {
+    point2i *p = (point2i *)p_;
+    printf("{%li, %li}", p->x, p->y);
 }

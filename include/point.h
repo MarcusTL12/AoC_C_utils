@@ -23,4 +23,6 @@ static point2i point2i_mul(point2i p, int64_t n) {
     return (point2i){n * p.x, n * p.y};
 }
 
+void point2i_show(void *p_);
+
 // TODO: point3i
