@@ -91,7 +91,7 @@ void vec_copy(vec_t *d, vec_t *s) {
 
         free(d->data);
         d->data = malloc(d->el_size * d->capacity);
-
-        memcpy(d->data, s->data, d->el_size * d->len);
     }
+
+    memcpy(d->data, s->data, d->el_size * d->len);
 }
