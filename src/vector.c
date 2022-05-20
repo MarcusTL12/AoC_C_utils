@@ -45,6 +45,23 @@ void vec_pop(vec_t *v, void *dest) {
     memcpy(dest, v->data + v->el_size * --v->len, v->el_size);
 }
 
+void vec_expand_zeroed(vec_t *v, size_t n) {
+    size_t n_len = v->len + n;
+    if (n_len > v->capacity) {
+        size_t n_cap = v->capacity;
+
+        while (n_len > n_cap) n_cap *= 2;
+
+        void *n_data = malloc(v->el_size * n_cap);
+        memcpy(n_data, v->data, v->len);
+        free(v->data);
+        v->data = n_data;
+        v->capacity = n_len;
+    }
+    memset(v->data + v->el_size * v->len, 0, n);
+    v->len = n_len;
+}
+
 void *vec_get(vec_t *v, size_t ind) { return v->data + v->el_size * ind; }
 
 void vec_set(vec_t *v, size_t ind, void *val) {

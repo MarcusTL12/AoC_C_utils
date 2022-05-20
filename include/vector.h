@@ -14,6 +14,9 @@ void vec_clear(vec_t *v);
 void vec_push(vec_t *v, void *value);
 void vec_pop(vec_t *v, void *dest);
 
+// Push n values of zeroed memory
+void vec_expand_zeroed(vec_t *v, size_t n);
+
 void *vec_get(vec_t *v, size_t ind);
 void vec_set(vec_t *v, size_t ind, void *val);
 
