@@ -53,12 +53,12 @@ void vec_expand_zeroed(vec_t *v, size_t n) {
         while (n_len > n_cap) n_cap *= 2;
 
         void *n_data = malloc(v->el_size * n_cap);
-        memcpy(n_data, v->data, v->len);
+        memcpy(n_data, v->data, v->len * v->el_size);
         free(v->data);
         v->data = n_data;
-        v->capacity = n_len;
+        v->capacity = n_cap;
     }
-    memset(v->data + v->el_size * v->len, 0, n);
+    memset(v->data + v->el_size * v->len, 0, n * v->el_size);
     v->len = n_len;
 }
 
