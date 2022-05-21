@@ -25,6 +25,11 @@ static point2i point2i_mul(point2i p, int64_t n) {
 
 void point2i_show(void *p_);
 
+// Even inds: positive, odd: negative
+// 0-1: x, 2-3: y
+// i ^ 1 => reverse
+const static point2i DIRS2i4[] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
 typedef struct {
     int64_t x, y, z;
 } point3i;
