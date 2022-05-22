@@ -23,6 +23,12 @@ char *file_read_full(char *filename) {
     return buffer;
 }
 
+void flushstdin() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+}
+
 // typedef struct {
 //     FILE *fp;
 // } buf_char_iter_state;
