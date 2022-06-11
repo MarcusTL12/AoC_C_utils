@@ -100,3 +100,81 @@ void bitfield_show(uint64_t *bitfield, size_t n_bits) {
         printf("%c", bitfield_get(bitfield, i) ? '1' : '0');
     }
 }
+
+void bitfield_set_n(uint64_t *bitfield, bool val, size_t start, size_t n) {
+    lldiv_t start_split = lldiv(start, 64);
+
+    if (start_split.rem + n <= 64) {
+        uint64_t mask1 = (~((uint64_t)0)) << start_split.rem;
+        uint64_t mask2 = (~((uint64_t)0)) >> (64 - start_split.rem - n);
+        uint64_t mask = mask1 & mask2;
+
+        if (val) {
+            bitfield[start_split.quot] |= mask;
+        } else {
+            bitfield[start_split.quot] &= ~mask;
+        }
+
+        return;
+    }
+
+    if (start_split.rem) {
+        uint64_t mask = (~((uint64_t)0)) << start_split.rem;
+
+        if (val) {
+            bitfield[start_split.quot] |= mask;
+        } else {
+            bitfield[start_split.quot] &= ~mask;
+        }
+
+        start_split.quot++;
+        n -= start_split.rem;
+    }
+
+    lldiv_t n_split = lldiv(n, 64);
+    memset(bitfield + start_split.quot, val ? ~((int)0) : 0, n_split.quot * 8);
+
+    if (n_split.rem) {
+        uint64_t mask = (~((uint64_t)0)) >> n_split.rem;
+
+        if (val) {
+            bitfield[start_split.quot + n_split.quot] |= mask;
+        } else {
+            bitfield[start_split.quot + n_split.quot] &= ~mask;
+        }
+    }
+}
+
+void bitfield_toggle_n(uint64_t *bitfield, size_t start, size_t n) {
+    lldiv_t start_split = lldiv(start, 64);
+
+    if (start_split.rem + n <= 64) {
+        uint64_t mask1 = (~((uint64_t)0)) << start_split.rem;
+        uint64_t mask2 = (~((uint64_t)0)) >> (64 - start_split.rem - n);
+        uint64_t mask = mask1 & mask2;
+
+        bitfield[start_split.quot] ^= mask;
+
+        return;
+    }
+
+    if (start_split.rem) {
+        uint64_t mask = (~((uint64_t)0)) << start_split.rem;
+
+        bitfield[start_split.quot] ^= mask;
+
+        start_split.quot++;
+        n -= start_split.rem;
+    }
+
+    lldiv_t n_split = lldiv(n, 64);
+    for (size_t i = 0; i < n_split.quot; i++) {
+        bitfield[start_split.quot + i] ^= ~((uint64_t)0);
+    }
+
+    if (n_split.rem) {
+        uint64_t mask = (~((uint64_t)0)) >> n_split.rem;
+
+        bitfield[start_split.quot + n_split.quot] ^= mask;
+    }
+}

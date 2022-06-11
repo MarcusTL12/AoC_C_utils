@@ -27,3 +27,6 @@ void bitfield_xor(uint64_t *a, uint64_t *b, size_t n_ints);
 size_t bitfield_findfirst_true(uint64_t *bitfield, size_t n);
 
 void bitfield_show(uint64_t *bitfield, size_t n_bits);
+
+void bitfield_set_n(uint64_t *bitfield, bool val, size_t start, size_t n);
+void bitfield_toggle_n(uint64_t *bitfield, size_t start, size_t n);
