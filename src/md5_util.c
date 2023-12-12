@@ -1,11 +1,19 @@
-#include <openssl/md5.h>
+#include <openssl/evp.h>
 
-void md5(char *output, const char *input, size_t len) {
-    MD5_CTX c;
+static void md5(unsigned char *output, unsigned char *input, unsigned int len) {
+    EVP_MD_CTX *mdctx;
+    unsigned int md5_digest_len = EVP_MD_size(EVP_md5());
 
-    MD5_Init(&c);
-    MD5_Update(&c, input, len);
-    MD5_Final((unsigned char *)output, &c);
+    // MD5_Init
+    mdctx = EVP_MD_CTX_new();
+    EVP_DigestInit_ex(mdctx, EVP_md5(), NULL);
+
+    // MD5_Update
+    EVP_DigestUpdate(mdctx, input, len);
+
+    // MD5_Final
+    EVP_DigestFinal_ex(mdctx, output, &md5_digest_len);
+    EVP_MD_CTX_free(mdctx);
 }
 
 void raw2hex(char *hex, const char *raw, size_t len) {
