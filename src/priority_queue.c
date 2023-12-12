@@ -32,7 +32,7 @@ static int64_t *get_key(priqueue_t *queue, size_t i) {
 
 static void set_index(priqueue_t *queue, size_t i) {
     void *element = vec_get(&queue->heap, i) + sizeof(int64_t);
-    void *loc = hashmap_get(queue->map, element);
+    const void *loc = hashmap_get(queue->map, element);
     if (loc) {
         *(size_t *)(loc + queue->el_size) = i;
     } else {
@@ -109,7 +109,7 @@ void priqueue_insert(priqueue_t *queue, const void *item, int64_t key) {
 
 void priqueue_insert_increase(priqueue_t *queue, const void *item,
                               int64_t key) {
-    void *loc = hashmap_get(queue->map, item);
+    const void *loc = hashmap_get(queue->map, item);
     if (loc) {
         size_t i = *(size_t *)(loc + queue->el_size);
         priqueue_increase_key(queue, i, key);
