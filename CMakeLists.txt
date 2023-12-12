@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 
 project(AoC_C_Utils C)
 
+set(CMAKE_COLOR_DIAGNOSTICS ON)
+
 include_directories(include hashmap.c)
 
 add_library(
